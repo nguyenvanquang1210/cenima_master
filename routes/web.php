@@ -71,3 +71,24 @@ Route::group(['prefix' => '/admin', 'middleware' => 'loginAdmin'],function() {
         Route::post('/delete', [QuanLyBaiVietController::class, 'delete']);
     });
 });
+
+Route::get('/update-password/{hash}', [CustomerController::class, 'viewUpdatePassword']);
+Route::post('/update-password', [CustomerController::class, 'actionUpdatePassword']);
+
+Route::get('/reset-password', [CustomerController::class, 'viewResetPassword']);
+Route::post('/reset-password', [CustomerController::class, 'actionResetPassword']);
+
+Route::get('/login', [CustomerController::class, 'viewLogin']);
+Route::post('/login', [CustomerController::class, 'actionLogin']);
+
+Route::get('/register', [CustomerController::class, 'viewRegister']);
+Route::post('/register', [CustomerController::class, 'actionRegister']);
+
+Route::get('/logout', [CustomerController::class, 'actionLogout']);
+
+Route::get('/active/{hash}', [CustomerController::class, 'actionActive']);
+Route::get('/data', [CustomerController::class, 'getData']);
+Route::post('/update', [CustomerController::class, 'update']);
+Route::post('/delete', [CustomerController::class, 'destroy']);
+Route::get('/change-status/{id}', [CustomerController::class, 'changeStatus']);
+Route::get('/kich-hoat/{id}', [CustomerController::class, 'kichHoat']);
