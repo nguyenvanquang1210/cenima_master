@@ -92,3 +92,6 @@ Route::post('/update', [CustomerController::class, 'update']);
 Route::post('/delete', [CustomerController::class, 'destroy']);
 Route::get('/change-status/{id}', [CustomerController::class, 'changeStatus']);
 Route::get('/kich-hoat/{id}', [CustomerController::class, 'kichHoat']);
+
+Route::get('/bai-viet', [CustomerController::class, 'viewBaiViet']);
+Route::get('/bai-viet/detail/{id}', [CustomerController::class, 'viewBaiVietDetail']);

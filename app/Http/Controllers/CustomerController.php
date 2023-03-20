@@ -187,6 +187,19 @@ class CustomerController extends Controller
 
         return redirect('/login');
     }
+     public function viewBaiViet()
+    {
+        $baiViet = QuanLyBaiViet::where('is_open', 1)->get();
+        return view('client.bai_viet', compact('baiViet'));
+    }
+
+    public function viewBaiVietDetail($id)
+    {
+        $baiVietDetail = QuanLyBaiViet::find($id);
+        $baiViet = QuanLyBaiViet::where('is_open', 1)->get();
+        return view('client.bai_viet_detail', compact('baiVietDetail','baiViet'));
+    }
+
     public function actionLogout()
     {
         Auth::guard('customer')->logout();
