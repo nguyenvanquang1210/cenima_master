@@ -72,8 +72,8 @@ Route::group(['prefix' => '/admin', 'middleware' => 'loginAdmin'],function() {
     });
 });
 
-Route::get('/update-password/{hash}', [CustomerController::class, 'viewUpdatePassword']);
-Route::post('/update-password', [CustomerController::class, 'actionUpdatePassword']);
+// Route::get('/update-password/{hash}', [CustomerController::class, 'viewUpdatePassword']);
+// Route::post('/update-password', [CustomerController::class, 'actionUpdatePassword']);
 
 Route::get('/reset-password', [CustomerController::class, 'viewResetPassword']);
 Route::post('/reset-password', [CustomerController::class, 'actionResetPassword']);
@@ -95,3 +95,11 @@ Route::get('/kich-hoat/{id}', [CustomerController::class, 'kichHoat']);
 
 Route::get('/bai-viet', [CustomerController::class, 'viewBaiViet']);
 Route::get('/bai-viet/detail/{id}', [CustomerController::class, 'viewBaiVietDetail']);
+
+Route::group(['prefix' => '/client', 'middleware' => 'loginCustomer'],function() {
+    Route::get('/dat-ve/{id_lich_chieu}', [LichChieuController::class, 'viewKhachHangDatVe']);
+    Route::get('/hien-thi-ghe-ban/{id_lich_chieu}', [LichChieuController::class, 'showDataByIdLich']);
+    Route::post('/dat-ve/giu-cho', [GheBanController::class, 'giuChoDatVe']);
+    Route::post('/dat-ve/huy-cho', [GheBanController::class, 'huyChoDatVe']);
+    Route::get('/done', [GheBanController::class, 'done']);
+});

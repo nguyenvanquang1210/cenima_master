@@ -74,30 +74,30 @@ class CustomerController extends Controller
         }
         $kickHoat->save();
     }
-    public function actionUpdatePassword(UpdatePasswordRequest $request)
-    {
-        $customer = Customer::where('hash_reset', $request->hash_reset)->first();
+    // public function actionUpdatePassword(UpdatePasswordRequest $request)
+    // {
+    //     $customer = Customer::where('hash_reset', $request->hash_reset)->first();
 
-        $customer->hash_reset = '';
-        $customer->password = bcrypt($request->password);
-        $customer->save();
+    //     $customer->hash_reset = '';
+    //     $customer->password = bcrypt($request->password);
+    //     $customer->save();
 
-        toastr()->success('Đã cập nhật mật khẩu thành công!');
+    //     toastr()->success('Đã cập nhật mật khẩu thành công!');
 
-        return redirect('/login');
-    }
+    //     return redirect('/login');
+    // }
 
-    public function viewUpdatePassword($hash)
-    {
-        $customer = Customer::where('hash_reset', $hash)->first();
+    // public function viewUpdatePassword($hash)
+    // {
+    //     $customer = Customer::where('hash_reset', $hash)->first();
 
-        if($customer) {
-            return view('client.cap_nhat_mat_khau', compact('hash'));
-        } else {
-            toastr()->error('Liên kết không tồn tại!');
-            return redirect('/');
-        }
-    }
+    //     if($customer) {
+    //         return view('client.cap_nhat_mat_khau', compact('hash'));
+    //     } else {
+    //         toastr()->error('Liên kết không tồn tại!');
+    //         return redirect('/');
+    //     }
+    // }
 
     public function actionResetPassword(ResetPasswordRequest $request)
     {

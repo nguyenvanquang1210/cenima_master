@@ -115,4 +115,32 @@ class GheBanController extends Controller
 
         return view('client.thanh_toan', compact('phim', 'dsGheBan', 'maGiaoDich', 'tongVe'));
     }
+    public function done()
+    {
+        $user = Auth::guard('customer')->user();
+        $dsGheBan = GheBan::where('id_khach_hang', $user->id)->where('trang_thai', 2)->get();
+        if(count($dsGheBan) == 0) {
+            toastr()->error('Bạn chưa có đặt chổ nên không thể thanh toán');
+            return redirect('/');
+        }
+        $phim = Phim::join('lich_chieus', 'phims.id', 'lich_chieus.id_phim')
+                    ->join('ghe_bans', 'lich_chieus.id', 'ghe_bans.id_lich')
+                    ->where('lich_chieus.id', $dsGheBan[0]->id_lich)
+                    ->select('phims.*', 'lich_chieus.thoi_gian_bat_dau')
+                    ->first();
+
+        $dataMail['phim'] = $phim->ten_phim;
+        $dataMail['thoi_gian'] = $phim->ngay_khoi_chieu;
+        $dataMail['ho_va_ten'] = $user->ho_va_ten;
+        $dataMail['email'] = $user->email;
+        $dataMail['ghe'] = '';
+        foreach($dsGheBan as $key => $value) {
+            $value->trang_thai = 1;
+            $dataMail['ghe'] .= $value->ten_ghe . ',';
+            $value->save();
+        }
+        SendEmailSuccess::dispatch($dataMail);
+
+        return redirect('/');
+    }
 }
