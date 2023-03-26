@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/admin/login', [AdminController::class, 'viewLogin']);
 Route::post('/admin/login', [AdminController::class, 'actionLogin']);
+
 Route::group(['prefix' => '/admin', 'middleware' => 'loginAdmin'],function() {
     Route::get('/', [AdminController::class, 'viewHome']);
 
@@ -22,7 +23,6 @@ Route::group(['prefix' => '/admin', 'middleware' => 'loginAdmin'],function() {
         Route::get('/change-status/{id}', [PhongController::class, 'changeStatus']);
         Route::get('/delete/{id}', [PhongController::class, 'destroy']);
         Route::get('/edit/{id}', [PhongController::class, 'edit']);
-
         Route::get('/data-ghe/{id_phong}', [PhongController::class, 'getDataGhe']);
     });
 
@@ -93,6 +93,12 @@ Route::post('/delete', [CustomerController::class, 'destroy']);
 Route::get('/change-status/{id}', [CustomerController::class, 'changeStatus']);
 Route::get('/kich-hoat/{id}', [CustomerController::class, 'kichHoat']);
 
+Route::get('/phim-dang-chieu', [HomepageController::class, 'viewPhimDangChieu']);
+Route::get('/phim-sap-chieu', [HomepageController::class, 'viewPhimSapChieu']);
+
+Route::post('/tim-kiem', [HomepageController::class, 'actionTimKiem']);
+
+Route::get('/chi-tiet-phim/{slug}', [HomepageController::class, 'chiTietPhim']);
 Route::get('/bai-viet', [CustomerController::class, 'viewBaiViet']);
 Route::get('/bai-viet/detail/{id}', [CustomerController::class, 'viewBaiVietDetail']);
 
@@ -101,5 +107,6 @@ Route::group(['prefix' => '/client', 'middleware' => 'loginCustomer'],function()
     Route::get('/hien-thi-ghe-ban/{id_lich_chieu}', [LichChieuController::class, 'showDataByIdLich']);
     Route::post('/dat-ve/giu-cho', [GheBanController::class, 'giuChoDatVe']);
     Route::post('/dat-ve/huy-cho', [GheBanController::class, 'huyChoDatVe']);
+
     Route::get('/done', [GheBanController::class, 'done']);
 });
