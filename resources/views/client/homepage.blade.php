@@ -240,8 +240,11 @@
                 @endif
             </div>
         </section>
+<<<<<<< HEAD
         <!-- slider-area-end -->
 
+=======
+>>>>>>> 0d1c986986348c08dd50a5008ee568f1c46db59c
         <!-- Phim Nổi bật -->
         <section class="ucm-area ucm-bg2" data-background="/assets_client/img/bg/ucm_bg02.jpg">
             <div class="container">
@@ -344,6 +347,7 @@
                 </div>
             </div>
         </section>
+<<<<<<< HEAD
         <!-- Phim Nổi bật-end -->
 
         <!-- gallery-area -->
@@ -503,6 +507,9 @@
     </footer>
     <!-- footer-area-end -->
     <!-- JS here -->
+=======
+    </main>
+>>>>>>> 0d1c986986348c08dd50a5008ee568f1c46db59c
     @include('client.share.js')
     @yield('js')
 </body>
