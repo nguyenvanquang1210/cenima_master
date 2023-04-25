@@ -1,6 +1,5 @@
 <?php
 use App\Http\Controllers\AdminController;
-
 use Illuminate\Support\Facades\Route;
 
 
@@ -107,6 +106,8 @@ Route::group(['prefix' => '/client', 'middleware' => 'loginCustomer'],function()
     Route::get('/hien-thi-ghe-ban/{id_lich_chieu}', [LichChieuController::class, 'showDataByIdLich']);
     Route::post('/dat-ve/giu-cho', [GheBanController::class, 'giuChoDatVe']);
     Route::post('/dat-ve/huy-cho', [GheBanController::class, 'huyChoDatVe']);
-
+    Route::get('/thong-tin', [HomepageController::class, 'viewInfor']);
+    Route::get('/thong-tin/data', [HomepageController::class, 'getDataInfor']);
+    Route::post('/thong-tin', [HomepageController::class, 'updateInfor']);
     Route::get('/done', [GheBanController::class, 'done']);
 });

@@ -7,7 +7,6 @@ use App\Models\LichChieu;
 use App\Models\Phim;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class HomepageController extends Controller
 {
@@ -69,6 +68,33 @@ class HomepageController extends Controller
                          ->get();
 
         return view('client.phim' , compact('list_phim'));
+    }
+    public function viewInfor()
+    {
+        return view('client.infor');
+    }
+
+    public function getDataInfor()
+    {
+        $user = Auth::guard('customer')->user();
+        $user = Customer::where('id', $user->id)
+                ->select("ho_va_ten", "email", "so_dien_thoai", "dia_chi", "gioi_tinh", "ngay_sinh", "id")
+                ->first();
+        return response()->json([
+            'status'    => true,
+            'data' => $user,
+        ]);
+    }
+
+    public function updateInfor(UpdateInforUserRequest $request)
+    {
+        $data = $request->all();
+        $user = Customer::where('id', $request->id)->first();
+        $user->update($data);
+
+        return response()->json([
+            'status'    => true,
+        ]);
     }
 
 }
