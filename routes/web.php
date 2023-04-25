@@ -109,5 +109,9 @@ Route::group(['prefix' => '/client', 'middleware' => 'loginCustomer'],function()
     Route::get('/thong-tin', [HomepageController::class, 'viewInfor']);
     Route::get('/thong-tin/data', [HomepageController::class, 'getDataInfor']);
     Route::post('/thong-tin', [HomepageController::class, 'updateInfor']);
+        Route::get('/mat-khau', [HomepageController::class, 'viewPass']);
+    Route::post('/mat-khau', [HomepageController::class, 'updatePass']);
+    Route::get('/lich-su-thanh-toan', [HomepageController::class, 'viewTran']);
+    Route::get('/lich-su-thanh-toan/data', [HomepageController::class, 'getDataTran']);
     Route::get('/done', [GheBanController::class, 'done']);
 });

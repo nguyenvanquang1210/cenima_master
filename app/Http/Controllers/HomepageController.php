@@ -96,5 +96,48 @@ class HomepageController extends Controller
             'status'    => true,
         ]);
     }
+     public function viewPass()
+    {
+        return view('client.password');
+    }
+    public function updatePass(UpdatePassUserRequest $request)
+    {
+        $user = Auth::guard('customer')->user();
+        if($user){
+            $check = Auth::guard('customer')->attempt([
+                'email'         => $user->email,
+                'password'      => $request->password_old
+            ]);
+            if($check){
+                $data = Customer::find($user->id);
+                $data->password = bcrypt($request->password);
+                $data->save();
+                return response()->json(['status' => 1]);
+            }else{
+                return response()->json(['status' => 2]);
+            }
+        }else{
+            return response()->json(['status' => 0]);
+        }
+    }
+
+    public function viewTran()
+    {
+        return view('client.history_tran');
+    }
+    public function getDataTran()
+    {
+        $user = Auth::guard('customer')->user();
+        $data = Payment::where('user_id', $user->id)
+                ->join("lich_chieus", "lich_chieus.id", "payments.id_lich_chieu")
+                ->join("phims", "phims.id", "lich_chieus.id_phim")
+                ->select("payments.*", "phims.ten_phim")
+                ->orderBy("payments.id", "desc")
+                ->get();
+        return response()->json([
+            'status'    => true,
+            'data' => $data,
+        ]);
+    }
 
 }
